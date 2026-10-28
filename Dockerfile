@@ -1,0 +1,15 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app.py chatbot.py ./
+
+EXPOSE 8000
+
+CMD ["python", "-m", "streamlit", "run", "app.py", \
+     "--server.port=8000", "--server.address=0.0.0.0", \
+     "--server.headless=true", "--server.enableCORS=false", \
+     "--server.enableXsrfProtection=false"]
